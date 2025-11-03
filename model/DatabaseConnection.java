@@ -6,40 +6,26 @@ import java.sql.SQLException;
 
 public class DatabaseConnection {
     
-    // Configuración de la conexión
     private static final String SERVER = "localhost"; // o tu servidor
     private static final String DATABASE = "pos_tienda_abarrotes";
     private static final String PORT = "1433"; // Puerto por defecto de SQL Server
     
-    // URL de conexión con autenticación de Windows
     private static final String URL = "jdbc:sqlserver://" + SERVER + ":" + PORT + 
                                       ";databaseName=" + DATABASE + 
                                       ";integratedSecurity=true;" +
                                       "encrypt=false;" +
                                       "trustServerCertificate=true;";
     
-    // Instancia única de conexión (Singleton)
     private static Connection connection = null;
     
-    /**
-     * Constructor privado para evitar instanciación
-     */
     private DatabaseConnection() {
-        // Constructor privado
     }
     
-    /**
-     * Obtiene la conexión a la base de datos
-     * @return Connection - Objeto de conexión
-     */
     public static Connection getConnection() {
         try {
-            // Si la conexión es null o está cerrada, crear una nueva
             if (connection == null || connection.isClosed()) {
-                // Cargar el driver de SQL Server
                 Class.forName("com.microsoft.sqlserver.jdbc.SQLServerDriver");
                 
-                // Establecer la conexión
                 connection = DriverManager.getConnection(URL);
                 
                 System.out.println("✓ Conexión exitosa a la base de datos");
@@ -64,10 +50,7 @@ public class DatabaseConnection {
             return null;
         }
     }
-    
-    /**
-     * Cierra la conexión a la base de datos
-     */
+
     public static void closeConnection() {
         try {
             if (connection != null && !connection.isClosed()) {
@@ -80,10 +63,6 @@ public class DatabaseConnection {
         }
     }
     
-    /**
-     * Verifica si la conexión está activa
-     * @return boolean - true si está conectada, false si no
-     */
     public static boolean isConnected() {
         try {
             return connection != null && !connection.isClosed();
@@ -92,10 +71,6 @@ public class DatabaseConnection {
         }
     }
     
-    /**
-     * Método para probar la conexión
-     * @param args
-     */
     public static void main(String[] args) {
         System.out.println("=== Prueba de Conexión a Base de Datos ===");
         System.out.println("Servidor: " + SERVER);
@@ -104,13 +79,11 @@ public class DatabaseConnection {
         System.out.println("Autenticación: Windows");
         System.out.println("==========================================\n");
         
-        // Intentar conectar
         Connection conn = DatabaseConnection.getConnection();
         
         if (conn != null) {
             System.out.println("\n¡Conexión establecida correctamente!");
             
-            // Mostrar información de la conexión
             try {
                 System.out.println("\nInformación de la conexión:");
                 System.out.println("  - URL: " + conn.getMetaData().getURL());
@@ -122,7 +95,6 @@ public class DatabaseConnection {
                 e.printStackTrace();
             }
             
-            // Cerrar conexión
             DatabaseConnection.closeConnection();
             
         } else {
