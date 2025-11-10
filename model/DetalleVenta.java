@@ -5,17 +5,15 @@ public class DetalleVenta {
 	private int idDetalle;
     private int idVenta;
     private int idProducto;
-    private Producto producto; // Objeto completo de producto
+    private Producto producto;
     private int cantidad;
     private double precioUnitario;
     private double subtotal;
     private double descuento;
     private double total;
     
-    // Constructor vacío
     public DetalleVenta() {}
     
-    // Constructor completo
     public DetalleVenta(int idDetalle, int idVenta, int idProducto, int cantidad,
                         double precioUnitario, double subtotal, double descuento, double total) {
         this.idDetalle = idDetalle;
@@ -28,7 +26,6 @@ public class DetalleVenta {
         this.total = total;
     }
     
-    // Getters y Setters
     public int getIdDetalle() { return idDetalle; }
     public void setIdDetalle(int idDetalle) { this.idDetalle = idDetalle; }
     
